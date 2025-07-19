@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <q-splitter
         v-model="splitterModel"
-        :model-value="splitterModel"
+        :model-value="splitterModel.value"
         :limits="[0, 100]"
         before-class="overflow-hidden q-mr-sm"
         after-class="overflow-hidden q-ml-sm"
@@ -72,7 +72,7 @@
                 </q-tooltip>
               </q-btn>
 
-              <q-inner-loading :showing="visible" color="secondary"/>
+              <q-inner-loading :showing="visible.value" color="secondary"/>
             </template>
           </q-banner>
 
@@ -207,7 +207,6 @@ export default {
       cols2: [],
       rows2: [],
       FD_PropType: null,
-      loading2: ref(false),
       //
       currentNode2: null,
       meterStruct: 0,
@@ -240,7 +239,7 @@ export default {
         api
             .post(baseURL, {
               method: "group/loadRec",
-              params: [{id: this.currentNode.id, tableName: "PropGr"}],
+              params: [{id: this.currentNode.id, tableName: "PropGr", lang: localStorage.getItem("curLang")}],
             })
             .then((response) => {
               this.currentNode = response.data.result.records[0];
@@ -365,7 +364,7 @@ export default {
       api
           .post(baseURL, {
             method: "group/loadGroup",
-            params: [{tableName: "PropGr"}],
+            params: [{tableName: "PropGr", lang: localStorage.getItem("curLang")}],
           })
           .then(
               (response) => {
@@ -397,14 +396,8 @@ export default {
 
     fnInsGr(mode, isChild) {
       let data = {
-        id: 0,
-        cod: "",
-        name: "",
-        fullName: "",
         accessLevel: 1,
-        cmt: null,
       };
-      const lg = this.lang;
       let parent = null;
       let parentName = null;
       if (isChild) {
@@ -441,7 +434,6 @@ export default {
               isChild: isChild,
               tableName: "PropGr",
               parentName: parentName,
-              lg: lg,
               dense: true,
             },
           })
@@ -510,14 +502,13 @@ export default {
         data.allItem = false;
         data.visualFormat = allConsts.FD_VisualFormat.shortt;
       }
-      const lg = this.lang;
+
       this.$q
           .dialog({
             component: UpdateProp,
             componentProps: {
               rec: data,
               mode: mode,
-              lg: lg,
               dense: true,
             },
           })
@@ -611,7 +602,7 @@ export default {
       api
           .post(baseURL, {
             method: "prop/loadPropTree",
-            params: [propGr],
+            params: [propGr, localStorage.getItem("curLang")],
           })
           .then(
               (response) => {
@@ -714,13 +705,11 @@ export default {
 
   created() {
     //console.log("create")
-    this.lang = localStorage.getItem("curLang");
-    this.lang = this.lang === "en-US" ? "en" : this.lang;
 
     api
         .post(baseURL, {
           method: "dict/load",
-          params: [{dict: "FD_PropType"}],
+          params: [{dict: "FD_PropType", lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.FD_PropType = new Map();
@@ -753,11 +742,7 @@ export default {
 <style scoped>
 
 .img-vert {
-  -moz-transform: scaleY(-1);
-  -o-transform: scaleY(-1);
-  -webkit-transform: scaleY(-1);
   transform: scaleY(-1);
-  /*-ms-filter: "FlipV";*/
 }
 
 </style>

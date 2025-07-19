@@ -17,6 +17,7 @@ import tofi.apinator.ApinatorService;
 import tofi.mdl.consts.*;
 import tofi.mdl.model.utils.EntityConst;
 import tofi.mdl.model.utils.EntityMdbUtils;
+import tofi.mdl.model.utils.UtEntityTranslate;
 import tofi.mdl.model.utils.UtMeterSoft;
 
 import java.util.*;
@@ -64,7 +65,7 @@ public class PropMdbUtils extends EntityMdbUtils {
     }
 
 
-    public Store loadPropTree(long propGr) throws Exception {
+    public Store loadPropTree(long propGr, String lang) throws Exception {
         Store st = mdb.createStore("Prop.rec");
         mdb.loadQuery(st, """
                     select p.*, a.attribvaltype, ac.entitytype, m.meterStruct
@@ -74,7 +75,10 @@ public class PropMdbUtils extends EntityMdbUtils {
                         left join Meter m on p.meter=m.id
                     where p.propGr=:g
                 """, Map.of("g", propGr));
-        return st;
+
+        UtEntityTranslate ut = new UtEntityTranslate(mdb);
+        return ut.getTranslatedStore(st, "Prop", lang);
+
     }
 
     public Store loadRec(long id) throws Exception {

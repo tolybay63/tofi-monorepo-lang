@@ -194,9 +194,6 @@ public class FactorMdbUtils extends EntityMdbUtils {
         //
         long id = insertEntity(rec);
         //add to PropVal
-        //todo Temp
-
-/*
         long fac = UtCnv.toLong(params.get("parent"));
         if (fac > 0) {
             Store rTmp = mdb.loadQuery("select id, allItem from Prop where factor=:f and proptype=:pt",
@@ -208,18 +205,9 @@ public class FactorMdbUtils extends EntityMdbUtils {
                 }
             }
         }
-*/
         //
         rec.put("id", id);
         return loadFactor(rec);
-
-
-/*
-        Store st = mdb.createStore("Factor");
-        mdb.loadQuery(st, "select * from factor where id=:id", Map.of("id", id));
-        mdb.resolveDicts(st);
-        return st;
-*/
     }
 
     public Store loadRec(Map<String, Object> params) throws Exception {

@@ -126,12 +126,11 @@ import "vue3-treeselect/dist/vue3-treeselect.css";
 export default {
   components: {treeselect},
 
-  props: ["data", "mode", "lg", "isChild", "parentName", "tableName", "dense"],
+  props: ["data", "mode", "isChild", "parentName", "tableName", "dense"],
 
   data() {
     return {
       form: this.data,
-      lang: this.lg,
       optAL: [],
       al: this.data.accessLevel,
       //
@@ -214,6 +213,7 @@ export default {
       const method = this.mode === "ins" ? "insert" : "update";
       this.form.accessLevel =
           typeof this.al === "object" ? this.al.id : this.al;
+      this.form.lang = localStorage.getItem("curLang")
 
       api
           .post(baseURL, {
@@ -248,7 +248,7 @@ export default {
     api
         .post(baseURL, {
           method: "dict/load",
-          params: [{dict: "FD_AccessLevel"}],
+          params: [{dict: "FD_AccessLevel", lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.optAL = response.data.result.records;
@@ -257,7 +257,7 @@ export default {
     api
         .post(baseURL, {
           method: "group/loadGroupForSelect",
-          params: [{id: this.data.id, tableName: this.tableName}],
+          params: [{id: this.data.id, tableName: this.tableName, lang: localStorage.getItem("curLang")}],
         })
         .then((response) => {
           this.parents = pack(response.data.result.records, "ord");
@@ -267,7 +267,6 @@ export default {
           console.log("PARENTS", this.parents);
         });
 
-    return {};
   },
 };
 </script>

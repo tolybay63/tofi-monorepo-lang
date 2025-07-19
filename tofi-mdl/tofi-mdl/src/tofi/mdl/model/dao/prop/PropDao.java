@@ -12,9 +12,9 @@ import java.util.Set;
 public class PropDao extends BaseModelDao {
 
 
-    public Store loadPropTree(long propGr) throws Exception {
+    public Store loadPropTree(long propGr, String lang) throws Exception {
         PropMdbUtils u = new PropMdbUtils(getMdb(), "Prop");
-        return u.loadPropTree(propGr);
+        return u.loadPropTree(propGr, lang);
     }
 
 

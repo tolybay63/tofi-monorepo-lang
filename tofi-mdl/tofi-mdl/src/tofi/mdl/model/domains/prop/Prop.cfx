@@ -106,7 +106,7 @@
     </domain>
 
 
-    <domain name="Prop.rec" parent="Prop">
+    <domain name="Prop.rec" parent="Prop.lang">
         <field name="meterStruct" parent="FD_MeterStruct/ref"/>
         <field name="attribValType" parent="FD_AttribValType/ref"/>
         <field name="entityType" parent="FD_EntityType/ref"/>
