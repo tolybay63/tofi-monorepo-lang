@@ -61,9 +61,11 @@ export default defineConfig((ctx) => {
 
       // publicPath: '/',
       publicPath: '',
-      extendViteConf(viteConf, { isServer, isClient }) {
-        viteConf.base = '';
-      },
+
+      //extendViteConf(viteConf, { isServer, isClient }) {
+        //viteConf.base = '';
+      //},
+
       // analyze: true,
       // env: {},
       // rawDefine: {}
