@@ -9,7 +9,7 @@
   >
     <q-card class="q-dialog-plugin" style="width: 800px">
       <q-bar class="text-white bg-primary">
-        <div>{{ $t("update") }}</div>
+        <div>{{ txt_lang("update") }}</div>
       </q-bar>
 
       <q-card>
@@ -17,7 +17,7 @@
           <!-- cls -->
           <q-select
               v-model="cls" :model-value="cls" use-input map-options
-              input-debounce="0" :label="$t('cls')" option-value="id" option-label="name"
+              input-debounce="0" :label="txt_lang('cls')" option-value="id" option-label="name"
               dense options-dense :options="optCls" clearable
               @update:model-value="inputValueCls" @filter="filterFnCls"
               @clear="fnClearCls"
@@ -25,7 +25,7 @@
             <template v-slot:no-option>
               <q-item>
                 <q-item-section class="text-grey">
-                  {{ $t("noResults") }}
+                  {{ txt_lang("noResults") }}
                 </q-item-section>
               </q-item>
             </template>
@@ -34,7 +34,7 @@
           <!-- obj -->
           <q-select
               v-model="obj" :model-value="obj" use-input map-options
-              input-debounce="0" :label="$t('obj')" option-value="id" option-label="name"
+              input-debounce="0" :label="txt_lang('obj')" option-value="id" option-label="name"
               dense options-dense :options="optObj" clearable
               @update:model-value="inputValueObj" @filter="filterFnObj"
               @clear="fnClearObj" :disable="!form.cls"
@@ -42,7 +42,7 @@
             <template v-slot:no-option>
               <q-item>
                 <q-item-section class="text-grey">
-                  {{ $t("noResults") }}
+                  {{ txt_lang("noResults") }}
                 </q-item-section>
               </q-item>
             </template>
@@ -54,7 +54,7 @@
               dense
               v-model="form.isDefault"
               :model-value="form.isDefault"
-              :label="$t('isDefault')"
+              :label="txt_lang('isDefault')"
           />
 
 
@@ -63,7 +63,7 @@
 
       <q-card-actions align="right">
         <q-btn
-            :loading="loading" dense color="primary" icon="save" :label="$t('save')"
+            :loading="loading" dense color="primary" icon="save" :label="txt_lang('save')"
             @click="onOKClick" :disable="validSave()"
         >
           <template #loading>
@@ -72,7 +72,7 @@
         </q-btn>
 
         <q-btn
-            dense color="primary" icon="cancel" :label="$t('cancel')" @click="onCancelClick"
+            dense color="primary" icon="cancel" :label="txt_lang('cancel')" @click="onCancelClick"
         />
       </q-card-actions>
     </q-card>
@@ -81,8 +81,7 @@
 
 <script>
 import {api, baseURL} from "boot/axios";
-import {ref} from "vue";
-import {notifyError} from "src/utils/jsutils";
+import {notifyError, txt_lang} from "src/utils/jsutils";
 
 
 export default {
@@ -101,7 +100,7 @@ export default {
       obj: this.data.obj,
       optObj: [],
       optObjOrg: [],
-      loading: ref(false),
+      loading: false,
     };
   },
 
@@ -112,6 +111,7 @@ export default {
   ],
 
   methods: {
+    txt_lang,
 
     //todo
     validSave() {
@@ -119,7 +119,7 @@ export default {
     },
 
     loadObj(cls) {
-      this.loading = ref(true);
+      this.loading = true;
       api
         .post(baseURL, {
           method: this.act + "/loadProviderObjForSelect",
@@ -130,7 +130,7 @@ export default {
           this.optObjOrg = response.data.result.records;
         })
         .finally(() => {
-          this.loading = ref(false);
+          this.loading = false;
         })
     },
 
@@ -197,7 +197,7 @@ export default {
     },
 
     onOKClick() {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post(baseURL, {
             method: this.act + "/saveProvider",
@@ -215,7 +215,7 @@ export default {
               }
           )
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
             this.hide();
           });
     },
@@ -241,7 +241,7 @@ export default {
 
   created() {
 
-    this.loading = ref(true);
+    this.loading = true;
     api
         .post(baseURL, {
           method: this.act + "/loadProviderClsForSelect",
@@ -252,7 +252,7 @@ export default {
           this.optClsOrg = response.data.result.records;
         })
         .finally(() => {
-          this.loading = ref(false);
+          this.loading = false;
         })
 
     if (this.mode==="upd") {

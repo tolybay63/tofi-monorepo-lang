@@ -1,4 +1,4 @@
-<!--<div class="q-table-middle scroll" >-->
+
 <template>
   <q-dialog
       ref="dialog"
@@ -12,7 +12,7 @@
   >
     <q-card class="q-dialog-plugin no-scroll">
       <q-bar class="text-white bg-primary">
-        <div>{{ $t("update") }}</div>
+        <div>{{ txt_lang("update") }}</div>
       </q-bar>
 
       <q-bar style="height: 45px">
@@ -24,7 +24,7 @@
             style="margin-bottom: 3px"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("expandAll") }}
+            {{ txt_lang("expandAll") }}
           </q-tooltip>
         </q-btn>
         <q-btn
@@ -36,7 +36,7 @@
             style="margin-bottom: 3px; margin-left: 5px"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("collapseAll") }}
+            {{ txt_lang("collapseAll") }}
           </q-tooltip>
         </q-btn>
         <q-space/>
@@ -46,7 +46,7 @@
               :dense="dense"
               color="secondary"
               icon="navigate_next"
-              :label="$t('next')"
+              :label="txt_lang('next')"
               @click="onOKClick"
           >
             <template #loading>
@@ -58,7 +58,7 @@
               :dense="dense"
               color="secondary"
               icon="cancel"
-              :label="$t('cancel')"
+              :label="txt_lang('cancel')"
               @click="onCancelClick"
           />
         </q-card-actions>
@@ -131,7 +131,7 @@
 <script>
 import {api, baseURL} from "boot/axios";
 import {ref} from "vue";
-import {checkChilds, collapsAll, expandAll, pack, uncheckChilds} from "src/utils/jsutils";
+import {checkChilds, collapsAll, expandAll, pack, txt_lang, uncheckChilds} from "src/utils/jsutils";
 import UpdaterPropMeterValSave from "pages/prop/values/UpdaterPropMeterValSave.vue";
 
 const expand = (item) => {
@@ -162,7 +162,7 @@ export default {
       cols: [],
       rows: [],
       separator: ref("cell"),
-      loading: ref(false),
+      loading: false,
       //
       isExpanded: true,
       currentNode: null,
@@ -177,6 +177,7 @@ export default {
   ],
 
   methods: {
+    txt_lang,
     selectedCheck(item) {
       //item.checked = !item.checked
       if (item.children.length > 0) {
@@ -188,7 +189,7 @@ export default {
     },
 
     loadData() {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post(baseURL, {
             method: "prop/loadPropMeterForUpd",
@@ -206,7 +207,7 @@ export default {
             expandAll(this.rows);
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 
@@ -239,11 +240,11 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs.dialog["show"]();
     },
 
     onOKClick() {
-      //this.loading = ref(true)
+      //this.loading = true
       let dta = [];
 
       const tt = (node, chks) => {
@@ -253,8 +254,6 @@ export default {
         let children = node.children;
         if (children.length > 0) {
           children.forEach((ch) => tt(ch, chks));
-        } else {
-
         }
       };
 
@@ -301,7 +300,7 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs.dialog["hide"]();
     },
 
     onDialogHide() {

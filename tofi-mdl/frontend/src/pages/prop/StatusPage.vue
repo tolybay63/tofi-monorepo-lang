@@ -11,6 +11,7 @@
             table-header-class="text-bold text-white bg-blue-grey-13"
             separator="cell"
             dense
+            :loading="loading"
             :rows-per-page-options="[0]"
         >
           <template v-slot:top>
@@ -23,7 +24,7 @@
                 @click="editData()"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("update") }}
+                {{ txt_lang("update") }}
               </q-tooltip>
             </q-btn>
           </template>
@@ -31,11 +32,11 @@
           <template v-slot:body="props">
             <q-tr :props="props">
               <q-td key="cod" :props="props">
-                {{ props.row.cod }}
+                {{ props["row"].cod }}
               </q-td>
 
               <q-td key="name" :props="props">
-                {{ props.row.name }}
+                {{ props["row"].name }}
               </q-td>
 
               <q-td key="isDefault" :props="props">
@@ -44,7 +45,7 @@
                     flat
                     color="blue"
                     :icon="
-                    props.row.isDefault
+                    props['row'].isDefault
                       ? 'check_box'
                       : 'check_box_outline_blank'
                   "
@@ -55,7 +56,7 @@
           </template>
 
           <template #loading>
-            <q-inner-loading :showing="loading" color="secondary"></q-inner-loading>
+            <q-inner-loading showing color="secondary"/>
           </template>
         </q-table>
 
@@ -64,28 +65,26 @@
 
 <script>
 import {api, baseURL} from "boot/axios";
-import {ref} from "vue";
 import UpdaterStatus from "pages/prop/UpdaterStatus.vue";
-import {hasTarget} from "src/utils/jsutils.js";
+import {hasTarget, txt_lang} from "src/utils/jsutils.js";
 
 export default {
   props: ["act", "fk", "factor"],
 
   data() {
     return {
-      //form: this.data,
-      //lang: this.lg,
       cols: [],
       rows: [],
-      loading: ref(false),
+      loading: false,
     };
   },
 
 
   methods: {
+    txt_lang,
     hasTarget,
     loadStatus() {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post(baseURL, {
             method: this.act + "/loadStatus",
@@ -95,7 +94,7 @@ export default {
             this.rows = response.data.result.records;
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 

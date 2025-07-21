@@ -14,7 +14,7 @@
           <q-banner dense inline-actions class="bg-orange-1 q-mb-sm">
             <div style="font-size: 1.2em; font-weight: bold;">
               <q-avatar color="black" text-color="white" icon="folder"></q-avatar>
-              {{ $t("propGr") }}
+              {{ txt_lang("propGr") }}
             </div>
             <template v-slot:action>
               <q-btn
@@ -26,7 +26,7 @@
                   @click="fnInsGr('ins', false)"
               >
                 <q-tooltip transition-show="rotate" transition-hide="rotate">
-                  {{ $t("create1level") }}
+                  {{ txt_lang("create1level") }}
                 </q-tooltip>
               </q-btn>
 
@@ -40,7 +40,7 @@
                   :disable="currentNode == null"
               >
                 <q-tooltip transition-show="rotate" transition-hide="rotate">
-                  {{ $t("createChild") }}
+                  {{ txt_lang("createChild") }}
                 </q-tooltip>
               </q-btn>
 
@@ -54,7 +54,7 @@
                   :disable="currentNode == null"
               >
                 <q-tooltip transition-show="rotate" transition-hide="rotate">
-                  {{ $t("editRecord") }}
+                  {{ txt_lang("editRecord") }}
                 </q-tooltip>
               </q-btn>
 
@@ -68,7 +68,7 @@
                   :disable="currentNode == null"
               >
                 <q-tooltip transition-show="rotate" transition-hide="rotate">
-                  {{ $t("deletingRecord") }}
+                  {{ txt_lang("deletingRecord") }}
                 </q-tooltip>
               </q-btn>
 
@@ -92,7 +92,7 @@
         <q-banner dense inline-actions class="bg-orange-1 q-mb-sm">
           <div style="font-size: 1.2em; font-weight: bold;">
             <q-avatar color="black" text-color="white" icon="credit_score"></q-avatar>
-            {{ $t("props") }}
+            {{ txt_lang("props") }}
           </div>
           <template v-slot:action>
             <q-btn
@@ -105,7 +105,7 @@
                 :disable="currentNode == null"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("create1level") }}
+                {{ txt_lang("create1level") }}
               </q-tooltip>
             </q-btn>
 
@@ -119,7 +119,7 @@
                 :disable="currentNode2 == null"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("editRecord") }}
+                {{ txt_lang("editRecord") }}
               </q-tooltip>
             </q-btn>
 
@@ -133,7 +133,7 @@
                 :disable="currentNode2 == null"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("deletingRecord") }}
+                {{ txt_lang("deletingRecord") }}
               </q-tooltip>
             </q-btn>
             <q-space/>
@@ -148,7 +148,7 @@
                 @click="propSelect()"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("chooseRecord") }}
+                {{ txt_lang("chooseRecord") }}
               </q-tooltip>
             </q-btn>
           </template>
@@ -182,7 +182,7 @@ import {
   hasTarget,
   notifyError,
   notifyInfo,
-  pack,
+  pack, txt_lang,
 } from "src/utils/jsutils";
 import QTreeTable from "components/QTreeTable.vue";
 import UpdateGroup from "pages/group/UpdateGroup.vue";
@@ -216,6 +216,7 @@ export default {
   },
 
   methods: {
+    txt_lang,
     hasTarget,
 
     propSelect() {

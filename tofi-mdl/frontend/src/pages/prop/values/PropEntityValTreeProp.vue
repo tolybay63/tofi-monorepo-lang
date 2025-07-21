@@ -1,10 +1,10 @@
 <template>
   <q-banner dense inline-actions class="bg-orange-1" style="font-size: 1.3em">
-    {{ $t("itemsPropCharGr") }}
+    {{ txt_lang("itemsPropCharGr") }}
     <template v-slot:action>
       <q-btn dense icon="expand_more" color="secondary" @click="fnExpand()">
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("expandAll") }}
+          {{ txt_lang("expandAll") }}
         </q-tooltip>
       </q-btn>
       <q-btn
@@ -15,7 +15,7 @@
           @click="fnCollapse()"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("collapseAll") }}
+          {{ txt_lang("collapseAll") }}
         </q-tooltip>
       </q-btn>
 
@@ -28,7 +28,7 @@
           @click="editData()"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("update") }}
+          {{ txt_lang("update") }}
         </q-tooltip>
       </q-btn>
     </template>
@@ -80,7 +80,7 @@
 <script>
 import {ref} from "vue";
 import {api, baseURL} from "boot/axios";
-import {collapsAll, expandAll, hasTarget, notifyError, pack} from "src/utils/jsutils";
+import {collapsAll, expandAll, hasTarget, notifyError, pack, txt_lang} from "src/utils/jsutils";
 import UpdaterPropEntityValTreePropUpd from "pages/prop/values/UpdaterPropEntityValTreePropUpd.vue";
 import allConsts from "pages/all-consts";
 
@@ -104,6 +104,7 @@ export default {
   },
 
   methods: {
+    txt_lang,
     hasTarget,
     editData() {
       this.$q

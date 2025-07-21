@@ -11,7 +11,7 @@
   >
     <q-card class="q-dialog-plugin no-scroll">
       <q-bar class="text-white bg-primary">
-        <div>{{ $t("update") }}</div>
+        <div>{{ txt_lang("update") }}</div>
       </q-bar>
 
       <q-bar class="bg-orange-1" style="height: 48px">
@@ -23,7 +23,7 @@
             style="margin-bottom: 5px"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("expandAll") }}
+            {{ txt_lang("expandAll") }}
           </q-tooltip>
         </q-btn>
         <q-btn
@@ -35,7 +35,7 @@
             style="margin-bottom: 5px; margin-left: 5px"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("collapseAll") }}
+            {{ txt_lang("collapseAll") }}
           </q-tooltip>
         </q-btn>
         <q-space/>
@@ -45,7 +45,7 @@
               :dense="dense"
               color="secondary"
               icon="save"
-              :label="$t('save')"
+              :label="txt_lang('save')"
               @click="onOKClick"
           >
             <template #loading>
@@ -57,13 +57,13 @@
               :dense="dense"
               color="secondary"
               icon="cancel"
-              :label="$t('cancel')"
+              :label="txt_lang('cancel')"
               @click="onCancelClick"
           />
         </q-card-actions>
       </q-bar>
 
-      <q-inner-loading :showing="showing" color="secondary"/>
+      <q-inner-loading :showing="loading" color="secondary"/>
 
       <div
           class="q-table-container q-table--dense wrap bg-orange-1 scroll"
@@ -128,7 +128,7 @@
       </div>
 
       <div>
-        <q-bar>{{ $t("countAll") }}: {{ this.sz }}</q-bar>
+        <q-bar>{{ txt_lang("countAll") }}: {{ this.sz }}</q-bar>
       </div>
     </q-card>
   </q-dialog>
@@ -137,7 +137,7 @@
 <script>
 import {api, baseURL} from "boot/axios";
 import {ref} from "vue";
-import {checkChilds, collapsAll, expandAll, notifyError, pack, uncheckChilds} from "src/utils/jsutils";
+import {checkChilds, collapsAll, expandAll, notifyError, pack, txt_lang, uncheckChilds} from "src/utils/jsutils";
 
 const expand = (item) => {
   item.expend = ref(true);
@@ -166,8 +166,7 @@ export default {
       cols: [],
       rows: [],
       separator: ref("cell"),
-      loading: ref(false),
-      showing: ref(false),
+      loading: false,
       //
       isExpanded: true,
       currentNode: null,
@@ -183,6 +182,7 @@ export default {
   ],
 
   methods: {
+    txt_lang,
     selectedCheck(item) {
       if (item.children.length > 0) {
         if (item.checked === false) checkChilds(item);
@@ -230,11 +230,11 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs.dialog["show"]();
     },
 
     onOKClick() {
-      //this.loading = ref(true)
+      this.loading = true
       let dta = [];
 
       const tt = (node, chks) => {
@@ -244,8 +244,6 @@ export default {
         let children = node.children;
         if (children.length > 0) {
           children.forEach((ch) => tt(ch, chks));
-        } else {
-
         }
       };
 
@@ -281,7 +279,7 @@ export default {
               }
           )
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
             this.hide();
           });
     },
@@ -289,7 +287,7 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs.dialog["hide"]();
     },
 
     onDialogHide() {
@@ -358,7 +356,7 @@ export default {
   created() {
     this.cols = this.getColumns();
 
-    this.showing = ref(true);
+    this.loading = true;
     api
         .post(baseURL, {
           method: "prop/loadPropValEntityForUpd",
@@ -370,7 +368,7 @@ export default {
           expandAll(this.rows);
         })
         .finally(() => {
-          this.showing = ref(false);
+          this.loading = false;
         });
 
     return {};

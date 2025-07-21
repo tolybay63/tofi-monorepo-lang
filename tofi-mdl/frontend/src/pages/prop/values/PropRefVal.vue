@@ -23,7 +23,7 @@
           @click="editData()"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("update") }}
+          {{ txt_lang("update") }}
         </q-tooltip>
       </q-btn>
     </template>
@@ -32,8 +32,7 @@
 
 <script>
 import {api, baseURL} from "boot/axios";
-import {ref} from "vue";
-import {hasTarget, notifyError, notifyInfo} from "src/utils/jsutils";
+import {hasTarget, notifyError, notifyInfo, txt_lang} from "src/utils/jsutils";
 import allConsts from "pages/all-consts";
 import UpdaterPropRefVal from "pages/prop/values/UpdaterPropRefVal.vue";
 
@@ -47,7 +46,7 @@ export default {
       rows: [],
       cols: [],
 
-      loading: ref(false),
+      loading: false,
       propId: null,
 
       dense: true,
@@ -55,6 +54,7 @@ export default {
   },
 
   methods: {
+    txt_lang,
     hasTarget,
     editData() {
       if (this.allItem) {
@@ -79,7 +79,7 @@ export default {
     },
 
     fetchData(prop) {
-      this.loading = ref(true);
+      this.loading = true;
       let ent = "Factor";
       if (this.propType === allConsts.FD_PropType.typ) ent = "Typ";
       else if (this.propType === allConsts.FD_PropType.reltyp) ent = "RelTyp";
@@ -99,7 +99,7 @@ export default {
             notifyError(msg);
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 

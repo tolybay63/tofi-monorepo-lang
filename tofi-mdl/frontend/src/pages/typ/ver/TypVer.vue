@@ -84,7 +84,7 @@
             </template>
 
             <template #loading>
-              <q-inner-loading showing color="secondary"></q-inner-loading>
+              <q-inner-loading showing color="secondary"/>
             </template>
           </q-table>
         </div>

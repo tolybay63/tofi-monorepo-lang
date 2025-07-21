@@ -9,7 +9,7 @@
   >
     <q-card class="q-dialog-plugin" style="width: 600px">
       <q-bar class="text-white bg-primary">
-        <div>{{ $t("update") }}</div>
+        <div>{{ txt_lang("update") }}</div>
       </q-bar>
 
       <q-card-section>
@@ -37,21 +37,21 @@
                     flat
                     color="blue"
                     :icon="
-                    props.row.checked === 1
+                    props['row'].checked === 1
                       ? 'check_box'
                       : 'check_box_outline_blank'
                   "
-                    @click="selectedRow(props.row)"
+                    @click="selectedRow(props['row'])"
                 >
                 </q-btn>
               </td>
 
               <q-td key="cod" :props="props">
-                {{ props.row.cod }}
+                {{ props['row'].cod }}
               </q-td>
 
               <q-td key="name" :props="props">
-                {{ props.row.name }}
+                {{ props['row'].name }}
               </q-td>
 
               <q-td key="isDefault" :props="props">
@@ -60,11 +60,11 @@
                     flat
                     color="blue"
                     :icon="
-                    props.row.isDefault === 1
+                    props['row'].isDefault === 1
                       ? 'check_box'
                       : 'check_box_outline_blank'
                   "
-                    @click="checkDefault(props.row)"
+                    @click="checkDefault(props['row'])"
                 >
                 </q-btn>
               </q-td>
@@ -79,7 +79,7 @@
             :dense="dense"
             color="primary"
             icon="save"
-            :label="$t('save')"
+            :label="txt_lang('save')"
             @click="onOKClick"
             :disable="validSave()"
         >
@@ -92,7 +92,7 @@
             :dense="dense"
             color="primary"
             icon="cancel"
-            :label="$t('cancel')"
+            :label="txt_lang('cancel')"
             @click="onCancelClick"
         />
       </q-card-actions>
@@ -102,8 +102,7 @@
 
 <script>
 import {api, baseURL} from "boot/axios";
-import {ref} from "vue";
-import {notifyError, notifyInfo} from "src/utils/jsutils";
+import {notifyError, notifyInfo, txt_lang} from "src/utils/jsutils";
 
 export default {
   props: ["data", "dense"],
@@ -113,7 +112,7 @@ export default {
       form: this.data,
       cols: [],
       rows: [],
-      loading: ref(false),
+      loading: false,
     };
   },
 
@@ -124,6 +123,7 @@ export default {
   ],
 
   methods: {
+    txt_lang,
     selectedRow(row) {
       row.checked = !row.checked;
       if (!row.checked) row.isDefault = null;
@@ -196,7 +196,7 @@ export default {
     },
 
     onOKClick() {
-      this.loading = ref(true);
+      this.loading = true;
       let dta = [];
 
       this.rows.forEach((r) => {
@@ -232,7 +232,7 @@ export default {
               }
           )
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
             this.hide();
           });
     },

@@ -25,7 +25,7 @@
           @click="editData()"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("update") }}
+          {{ txt_lang("update") }}
         </q-tooltip>
       </q-btn>
     </template>
@@ -34,9 +34,8 @@
 
 <script>
 import {api, baseURL} from "boot/axios";
-import {ref} from "vue";
 import UpdaterPropPeriodType from "pages/prop/values/UpdaterPropPeriodType.vue";
-import {hasTarget, notifyError} from "src/utils/jsutils";
+import {hasTarget, notifyError, txt_lang} from "src/utils/jsutils";
 
 export default {
   name: "PropPeriodType",
@@ -47,7 +46,7 @@ export default {
       cols: [],
 
       FD_PeriodType: null,
-      loading: ref(false),
+      loading: false,
       propId: null,
 
       dense: true,
@@ -55,6 +54,7 @@ export default {
   },
 
   methods: {
+    txt_lang,
     hasTarget,
     editData() {
       this.$q
@@ -73,7 +73,7 @@ export default {
     },
 
     fetchData(prop) {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post(baseURL, {
             method: "prop/loadPropPeriodType",
@@ -90,7 +90,7 @@ export default {
             notifyError(msg);
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 
@@ -98,7 +98,7 @@ export default {
       return [
         {
           name: "periodType",
-          label: this.$t("periodType"),
+          label: this.txt_lang("periodType"),
           field: "periodType",
           align: "left",
           classes: "bg-blue-grey-1",

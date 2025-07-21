@@ -9,23 +9,23 @@
   >
     <q-card class="q-dialog-plugin" style="width: 600px">
       <q-bar v-if="mode === 'ins'" class="text-white bg-primary">
-        <div>{{ $t("newRecord") }}</div>
+        <div>{{ txt_lang("newRecord") }}</div>
       </q-bar>
       <q-bar v-if="mode === 'upd'" class="text-white bg-primary">
-        <div>{{ $t("editRecord") }}</div>
+        <div>{{ txt_lang("editRecord") }}</div>
       </q-bar>
 
       <q-card-section>
         <q-item-section v-if="isChild">
-          {{ $t("parentGroup") }}: {{ parentName }}
+          {{ txt_lang("parentGroup") }}: {{ parentName }}
         </q-item-section>
         <!-- cod -->
         <q-input
             :dense="dense"
             v-model="form.cod"
             :model-value="form.cod"
-            :label="$t('code')"
-            :placeholder="$t('msgCodeGen')"
+            :label="txt_lang('code')"
+            :placeholder="txt_lang('msgCodeGen')"
         />
         <!-- name -->
         <q-input
@@ -34,8 +34,8 @@
             v-model="form.name"
             autofocus
             @blur="onBlurName"
-            :label="$t('fldName')"
-            :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"
+            :label="txt_lang('fldName')"
+            :rules="[(val) => (!!val && !!val.trim()) || txt_lang('req')]"
         >
         </q-input>
         <!-- fullName-->
@@ -43,8 +43,8 @@
             :dense="dense"
             :model-value="form.fullName"
             v-model="form.fullName"
-            :label="$t('fldFullName')"
-            :rules="[(val) => (!!val && !!val.trim()) || $t('req')]"
+            :label="txt_lang('fldFullName')"
+            :rules="[(val) => (!!val && !!val.trim()) || txt_lang('req')]"
         >
         </q-input>
 
@@ -54,7 +54,7 @@
             :options-dense="dense"
             v-model="al"
             :options="optAL"
-            :label="$t('accessLevel')"
+            :label="txt_lang('accessLevel')"
             option-value="id"
             option-label="text"
             map-options
@@ -67,7 +67,7 @@
         <q-item-label
             class="text-grey-7"
             style="font-size: 0.8em; margin-top: 10px"
-        >{{ $t("parent") }}
+        >{{ txt_lang("parent") }}
         </q-item-label
         >
         <treeselect
@@ -75,10 +75,10 @@
             :options="parents"
             v-model="parent"
             :model-value="parent"
-            :placeholder="$t('select')"
-            :noChildrenText="$t('noChilds')"
-            :noResultsText="$t('noResult')"
-            :noOptionsText="$t('noResult')"
+            :placeholder="txt_lang('select')"
+            :noChildrenText="txt_lang('noChilds')"
+            :noResultsText="txt_lang('noResult')"
+            :noOptionsText="txt_lang('noResult')"
             @close="fnCloseParent"
         >
         </treeselect>
@@ -89,7 +89,7 @@
             :model-value="form.cmt"
             v-model="form.cmt"
             type="textarea"
-            :label="$t('fldCmt')"
+            :label="txt_lang('fldCmt')"
         >
         </q-input>
         <!---->
@@ -100,7 +100,7 @@
             :dense="dense"
             color="primary"
             icon="save"
-            :label="$t('save')"
+            :label="txt_lang('save')"
             @click="onOKClick"
             :disable="validName()"
         />
@@ -108,7 +108,7 @@
             :dense="dense"
             color="primary"
             icon="cancel"
-            :label="$t('cancel')"
+            :label="txt_lang('cancel')"
             @click="onCancelClick"
         />
       </q-card-actions>
@@ -118,7 +118,7 @@
 
 <script>
 import {api, baseURL} from "boot/axios";
-import {notifyError, notifySuccess, pack} from "src/utils/jsutils";
+import {notifyError, notifySuccess, pack, txt_lang} from "src/utils/jsutils";
 
 import treeselect from "vue3-treeselect";
 import "vue3-treeselect/dist/vue3-treeselect.css";
@@ -147,6 +147,7 @@ export default {
   ],
 
   methods: {
+    txt_lang,
 
     fnCloseParent(v) {
       this.form.parent = v;

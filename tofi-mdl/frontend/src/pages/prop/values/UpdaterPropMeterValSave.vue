@@ -10,7 +10,7 @@
   >
     <q-card class="q-dialog-plugin" no-scroll>
       <q-bar class="text-white bg-primary">
-        <div>{{ $t("update") }}</div>
+        <div>{{ txt_lang("update") }}</div>
       </q-bar>
 
       <q-bar class="bg-orange-1" style="height: 45px">
@@ -22,7 +22,7 @@
             style="margin-bottom: 3px"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("expandAll") }}
+            {{ txt_lang("expandAll") }}
           </q-tooltip>
         </q-btn>
         <q-btn
@@ -34,7 +34,7 @@
             style="margin-bottom: 3px; margin-left: 5px"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("collapseAll") }}
+            {{ txt_lang("collapseAll") }}
           </q-tooltip>
         </q-btn>
 
@@ -46,7 +46,7 @@
               :dense="dense"
               color="secondary"
               icon="save"
-              :label="$t('save')"
+              :label="txt_lang('save')"
               :disable="validSave()"
               @click="onOKClick"
           >
@@ -59,7 +59,7 @@
               :dense="dense"
               color="secondary"
               icon="cancel"
-              :label="$t('cancel')"
+              :label="txt_lang('cancel')"
               @click="onCancelClick"
           />
         </q-card-actions>
@@ -113,7 +113,7 @@
 <script>
 import {api, baseURL} from "boot/axios";
 import {ref} from "vue";
-import {collapsAll, expandAll, notifyError, pack} from "src/utils/jsutils";
+import {collapsAll, expandAll, notifyError, pack, txt_lang} from "src/utils/jsutils";
 
 const expand = (item) => {
   item.expend = ref(true);
@@ -150,8 +150,7 @@ export default {
       lang: this.lg,
       cols: [],
       rows: [],
-      separator: ref("cell"),
-      loading: ref(false),
+      loading: false,
       //
       isExpanded: true,
       currentNode: null,
@@ -166,12 +165,13 @@ export default {
   ],
 
   methods: {
+    txt_lang,
     validSave() {
       return false; //this.rows.length===0
     },
 
     loadData() {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post(baseURL, {
             method: "prop/loadPropMeterForUpdSave",
@@ -188,7 +188,7 @@ export default {
             expandAll(this.rows);
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 
@@ -214,11 +214,11 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs.dialog["show"]();
     },
 
     onOKClick() {
-      this.loading = ref(true);
+      this.loading = true;
 
       let dta = [];
 
@@ -265,7 +265,7 @@ export default {
               }
           )
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
             this.hide();
           });
     },
@@ -273,7 +273,7 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs.dialog["hide"]();
     },
 
     onDialogHide() {

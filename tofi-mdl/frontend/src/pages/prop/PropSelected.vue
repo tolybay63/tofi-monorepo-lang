@@ -2,7 +2,7 @@
   <div class="q-pa-sm-sm bg-green-1">
     <q-tabs dense v-model="tab" class="text-teal no-scroll">
       <div style="margin-left: 20px">
-        {{ $t("prop") }}:
+        {{ txt_lang("prop") }}:
         <span style="color: black; margin-left: 10px">
           <strong>{{ this.infoProp() }} </strong>
         </span>
@@ -12,7 +12,7 @@
 
       <q-btn dense glossy round color="secondary" icon="arrow_back" @click="toBack()">
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("back") }}
+          {{ txt_lang("back") }}
         </q-tooltip>
       </q-btn>
 
@@ -20,7 +20,7 @@
           name="status"
           no-caps
           icon="check_box"
-          :label="$t('statusFactor')"
+          :label="txt_lang('statusFactor')"
           v-if="prop.statusFactor"
       />
 
@@ -28,7 +28,7 @@
           name="provider"
           no-caps
           icon="download"
-          :label="$t('providerTyp')"
+          :label="txt_lang('providerTyp')"
           v-if="prop.providerTyp"
       />
 
@@ -36,7 +36,7 @@
           name="refval"
           no-caps
           :icon="getIcon()"
-          :label="$t(getTitle())"
+          :label="txt_lang(getTitle())"
           v-if="isFactor() || isTyp() || isRel()"
       />
 
@@ -44,7 +44,7 @@
           name="refvalMeasure"
           no-caps
           :icon="getIcon()"
-          :label="$t(getTitle())"
+          :label="txt_lang(getTitle())"
           v-if="isMeasure()"
       />
 
@@ -52,7 +52,7 @@
           name="meterval"
           no-caps
           :icon="getIconM()"
-          :label="$t('subProps')"
+          :label="txt_lang('subProps')"
           class="no-scroll"
           v-if="isMeter() || isRate()"
       />
@@ -97,7 +97,7 @@
           name="periodType"
           no-caps
           icon="date_range"
-          :label="$t('periodTypes')"
+          :label="txt_lang('periodTypes')"
           v-if="dependPeriod()"
       />
     </q-tabs>
@@ -175,6 +175,7 @@ import PropEntityValTreeProp from "pages/prop/values/PropEntityValTreeProp.vue";
 import ComplexProp from "pages/prop/ComplexProp.vue";
 import StatusPage from "pages/prop/StatusPage.vue";
 import ProviderPage from "pages/prop/ProviderPage.vue";
+import {txt_lang} from "src/utils/jsutils.js";
 
 export default {
   name: "PropSelected",
@@ -200,6 +201,7 @@ export default {
     };
   },
   methods: {
+    txt_lang,
     toBack() {
       this.$router["push"]({
         name: "propPage",

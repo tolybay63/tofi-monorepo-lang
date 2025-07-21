@@ -10,7 +10,7 @@
           @click="fnIns('ins')"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("createItemComplex") }}
+          {{ txt_lang("createItemComplex") }}
         </q-tooltip>
       </q-btn>
 
@@ -27,7 +27,7 @@
         "
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("editRecord") }}
+          {{ txt_lang("editRecord") }}
         </q-tooltip>
       </q-btn>
 
@@ -41,7 +41,7 @@
           :disable="currentNode == null || currentNode.parent == null"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("deletingRecord") }}
+          {{ txt_lang("deletingRecord") }}
         </q-tooltip>
       </q-btn>
 
@@ -55,7 +55,7 @@
         @click="propSelect()"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("chooseRecord") }}
+          {{ txt_lang("chooseRecord") }}
         </q-tooltip>
       </q-btn>
 -->
@@ -69,7 +69,7 @@
                 @click="setStatus(currentNode)"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("statusFactor") }}
+                {{ txt_lang("statusFactor") }}
               </q-tooltip>
             </q-btn>
             <q-btn
@@ -78,7 +78,7 @@
                 @click="setProvider(currentNode)"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("providerTyp") }}
+                {{ txt_lang("providerTyp") }}
               </q-tooltip>
             </q-btn>
             <q-btn
@@ -86,7 +86,7 @@
                 :disable="loading || currentNode==null" @click="propSelect()"
             >
               <q-tooltip transition-show="rotate" transition-hide="rotate">
-                {{ $t("chooseRecord") }}
+                {{ txt_lang("chooseRecord") }}
               </q-tooltip>
             </q-btn>
       -->
@@ -111,7 +111,7 @@ import {ref} from "vue";
 import allConsts from "pages/all-consts";
 import {api, baseURL} from "boot/axios";
 import UpdateProp from "pages/prop/UpdateProp.vue";
-import {collapsAll, expandAll, hasTarget, notifyError, notifyInfo, pack,} from "src/utils/jsutils";
+import {collapsAll, expandAll, hasTarget, notifyError, notifyInfo, pack, txt_lang,} from "src/utils/jsutils";
 
 export default {
   name: "ComplexProp",
@@ -133,6 +133,7 @@ export default {
   },
 
   methods: {
+    txt_lang,
     hasTarget,
     onUpdateSelect(item) {
       this.currentNode = item.selected !== undefined ? item.selected : null;
@@ -395,9 +396,6 @@ export default {
 <style scoped>
 
 .img-vert {
-  -moz-transform: scaleY(-1);
-  -o-transform: scaleY(-1);
-  -webkit-transform: scaleY(-1);
   transform: scaleY(-1);
   -ms-filter: "FlipV";
 }

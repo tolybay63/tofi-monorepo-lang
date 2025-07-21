@@ -9,18 +9,18 @@
   >
     <q-card class="q-dialog-plugin" style="width: 800px">
       <q-bar v-if="mode === 'ins'" class="text-white bg-primary">
-        <div>{{ $t("newRecord") }}</div>
+        <div>{{ txt_lang("newRecord") }}</div>
       </q-bar>
       <q-bar v-if="mode === 'upd'" class="text-white bg-primary">
-        <div>{{ $t("editRecord") }}</div>
+        <div>{{ txt_lang("editRecord") }}</div>
       </q-bar>
 
       <q-inner-loading :showing="visible" color="secondary"/>
 
       <q-card>
         <q-tabs v-model="tab" class="text-teal">
-          <q-tab name="main" :label="$t('mainProp')"/>
-          <q-tab name="dop" :label="$t('dopProp')"/>
+          <q-tab name="main" :label="txt_lang('mainProp')"/>
+          <q-tab name="dop" :label="txt_lang('dopProp')"/>
         </q-tabs>
 
         <q-separator/>
@@ -36,7 +36,7 @@
           <q-tab-panel name="main">
             <div class="row">
               <div class="text-blue q-mr-sm" style="font-size: small">
-                {{ $t("parent") }}:
+                {{ txt_lang("parent") }}:
               </div>
               <div>{{ parentName }}</div>
             </div>
@@ -48,7 +48,7 @@
               v-model="propType"
               :model-value="propType"
               :options="optionsPropType"
-              :label="$t('propType')"
+              :label="txt_lang('propType')"
               option-value="id"
               option-label="text"
               map-options
@@ -61,8 +61,8 @@
               :model-value="form.name"
               v-model="form.name"
               @blur="onBlurName"
-              :label="$t('fldName')"
-              :error-message="$t('min3word')"
+              :label="txt_lang('fldName')"
+              :error-message="txt_lang('min3word')"
               :error="!isValid(form.name)"
             >
             </q-input>
@@ -72,8 +72,8 @@
               dense
               :model-value="form.fullName"
               v-model="form.fullName"
-              :label="$t('fldFullName')"
-              :error-message="$t('min3word')"
+              :label="txt_lang('fldFullName')"
+              :error-message="txt_lang('min3word')"
               :error="!isValid(form.fullName)"
             >
             </q-input>
@@ -83,8 +83,8 @@
               dense
               v-model="form.cod"
               :model-value="form.cod"
-              :label="$t('code')"
-              :placeholder="$t('msgCodeGen')"
+              :label="txt_lang('code')"
+              :placeholder="txt_lang('msgCodeGen')"
             />
 
             <!-- AccessLevel -->
@@ -92,7 +92,7 @@
               dense
               v-model="al"
               :options="optionsLevel"
-              :label="$t('accessLevel')"
+              :label="txt_lang('accessLevel')"
               option-value="id"
               option-label="text"
               map-options
@@ -109,7 +109,7 @@
               :model-value="status"
               use-input
               input-debounce="0"
-              :label="$t('statusFactor')"
+              :label="txt_lang('statusFactor')"
               :options="optionsStatus"
               option-value="id"
               option-label="name"
@@ -126,7 +126,7 @@
               <template v-slot:no-option>
                 <q-item>
                   <q-item-section class="text-grey">
-                    {{ $t("noResults") }}
+                    {{ txt_lang("noResults") }}
                   </q-item-section>
                 </q-item>
               </template>
@@ -138,7 +138,7 @@
               use-input
               map-options
               input-debounce="0"
-              :label="$t('providerTyp')"
+              :label="txt_lang('providerTyp')"
               :options="optionsProvider"
               option-value="id"
               option-label="name"
@@ -154,7 +154,7 @@
               <template v-slot:no-option>
                 <q-item>
                   <q-item-section class="text-grey">
-                    {{ $t("noResults") }}
+                    {{ txt_lang("noResults") }}
                   </q-item-section>
                 </q-item>
               </template>
@@ -169,7 +169,7 @@
                 map-options
                 use-input
                 input-debounce="0"
-                :label="$t('attribute')"
+                :label="txt_lang('attribute')"
                 :options="optionsAttrib"
                 option-value="id"
                 option-label="name"
@@ -177,12 +177,12 @@
                 :disable="mode === 'upd'"
                 @update:model-value="inputValueAttrib"
                 @filter="filterFnAttrib"
-                :rules="[(val) => !!val || $t('req')]"
+                :rules="[(val) => !!val || txt_lang('req')]"
               >
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
-                      {{ $t("noResults") }}
+                      {{ txt_lang("noResults") }}
                     </q-item-section>
                   </q-item>
                 </template>
@@ -196,7 +196,7 @@
                 map-options
                 use-input
                 input-debounce="0"
-                :label="$t('factor')"
+                :label="txt_lang('factor')"
                 :options="optionsStatus"
                 option-value="id"
                 option-label="name"
@@ -208,7 +208,7 @@
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
-                      {{ $t("noResults") }}
+                      {{ txt_lang("noResults") }}
                     </q-item-section>
                   </q-item>
                 </template>
@@ -222,7 +222,7 @@
                 map-options
                 use-input
                 input-debounce="0"
-                :label="$t('meter')"
+                :label="txt_lang('meter')"
                 :options="optionsMeter"
                 option-value="id"
                 option-label="name"
@@ -234,7 +234,7 @@
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
-                      {{ $t("noResults") }}
+                      {{ txt_lang("noResults") }}
                     </q-item-section>
                   </q-item>
                 </template>
@@ -248,7 +248,7 @@
                 map-options
                 use-input
                 input-debounce="0"
-                :label="$t('meter')"
+                :label="txt_lang('meter')"
                 :options="optionsMeter"
                 option-value="id"
                 option-label="name"
@@ -260,7 +260,7 @@
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
-                      {{ $t("noResults") }}
+                      {{ txt_lang("noResults") }}
                     </q-item-section>
                   </q-item>
                 </template>
@@ -268,7 +268,7 @@
 
               <div>
                 <q-item-label class="text-grey-7" style="font-size: 0.8em">{{
-                    $t("rate")
+                    txt_lang("rate")
                   }}
                 </q-item-label>
                 <treeselect
@@ -276,10 +276,10 @@
                   max-height="800"
                   v-model="rate"
                   :normalizer="normalizer"
-                  :placeholder="$t('select')"
-                  :noChildrenText="$t('noChilds')"
-                  :noResultsText="$t('noResult')"
-                  :noOptionsText="$t('noResult')"
+                  :placeholder="txt_lang('select')"
+                  :noChildrenText="txt_lang('noChilds')"
+                  :noResultsText="txt_lang('noResult')"
+                  :noOptionsText="txt_lang('noResult')"
                   @close="fnCloseRate"
                   :disabled="mode === 'upd' && form.parent !== undefined"
                 />
@@ -293,7 +293,7 @@
                 map-options
                 use-input
                 input-debounce="0"
-                :label="$t('typ')"
+                :label="txt_lang('typ')"
                 :options="optionsProvider"
                 option-value="id"
                 option-label="name"
@@ -305,7 +305,7 @@
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
-                      {{ $t("noResults") }}
+                      {{ txt_lang("noResults") }}
                     </q-item-section>
                   </q-item>
                 </template>
@@ -320,7 +320,7 @@
                 map-options
                 use-input
                 input-debounce="0"
-                :label="$t('reltyp')"
+                :label="txt_lang('reltyp')"
                 :options="optionsRelTyp"
                 option-value="id"
                 option-label="name"
@@ -333,7 +333,7 @@
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
-                      {{ $t("noResults") }}
+                      {{ txt_lang("noResults") }}
                     </q-item-section>
                   </q-item>
                 </template>
@@ -346,7 +346,7 @@
                 :dense="dense"
                 :model-value="form['isDependValueOnPeriod']"
                 v-model="form['isDependValueOnPeriod']"
-                :label="$t('dependValueOnPeriod')"
+                :label="txt_lang('dependValueOnPeriod')"
                 @update:model-value="fnPeriodDepend()"
                 :disable="
                   (mode === 'upd' && form.parent !== undefined) || isComplexProp
@@ -360,7 +360,7 @@
                 :dense="dense"
                 :model-value="form.isDependNameOnPeriod"
                 v-model="form.isDependNameOnPeriod"
-                :label="$t('dependNameOnPeriod')"
+                :label="txt_lang('dependNameOnPeriod')"
                 :disable="
                   !this.form['isDependValueOnPeriod'] ||
                   (mode === 'upd' && form.parent !== undefined) ||
@@ -377,7 +377,7 @@
                 :dense="dense"
                 model-value="form.isUniq"
                 v-model="form.isUniq"
-                :label="$t('isUniq')"
+                :label="txt_lang('isUniq')"
               />
             </div>
             <div v-if="isFactor() || isTyp() || isRel()">
@@ -386,7 +386,7 @@
                 :dense="dense"
                 model-value="form.allItem"
                 v-model="form.allItem"
-                :label="$t('allItem')"
+                :label="txt_lang('allItem')"
               />
 
               <!-- visualFormat -->
@@ -395,7 +395,7 @@
                 :dense="dense"
                 v-model="vf"
                 :options="optionsFV"
-                :label="$t('visualFormat')"
+                :label="txt_lang('visualFormat')"
                 option-value="id"
                 option-label="text"
                 map-options
@@ -411,7 +411,7 @@
                 v-model="meterBehavior"
                 :model-value="meterBehavior"
                 :options="optionsBehavior"
-                :label="$t('meterBehavior')"
+                :label="txt_lang('meterBehavior')"
                 option-value="id"
                 option-label="text"
                 map-options
@@ -421,7 +421,7 @@
 
               <div>
                 <q-item-label class="text-grey-7" style="font-size: 0.8em">{{
-                    $t("measure")
+                    txt_lang("measure")
                   }}
                 </q-item-label>
                 <treeselect
@@ -429,10 +429,10 @@
                   max-height="800"
                   v-model="measure"
                   :normalizer="normalizer"
-                  :placeholder="$t('select')"
-                  :noChildrenText="$t('noChilds')"
-                  :noResultsText="$t('noResult')"
-                  :noOptionsText="$t('noResult')"
+                  :placeholder="txt_lang('select')"
+                  :noChildrenText="txt_lang('noChilds')"
+                  :noResultsText="txt_lang('noResult')"
+                  :noOptionsText="txt_lang('noResult')"
                   @close="fnCloseMeasure"
                   :disabled="mode === 'upd' && form.parent !== undefined"
                   @select="fnSelMeasure"
@@ -444,7 +444,7 @@
                 :model-value="form.minVal"
                 type="number"
                 :dense="dense"
-                :label="$t('minVal')"
+                :label="txt_lang('minVal')"
                 :disable="mode === 'upd' && form.parent !== undefined"
               />
               <q-input
@@ -452,7 +452,7 @@
                 :model-value="form.maxVal"
                 type="number"
                 :dense="dense"
-                :label="$t('maxVal')"
+                :label="txt_lang('maxVal')"
                 :disable="mode === 'upd' && form.parent !== undefined"
               />
 
@@ -461,7 +461,7 @@
                 :model-value="form.digit"
                 type="number"
                 :dense="dense"
-                :label="$t('digit')"
+                :label="txt_lang('digit')"
                 :disable="mode === 'upd' && form.parent !== undefined"
               />
             </div>
@@ -472,7 +472,7 @@
               :model-value="form.cmt"
               v-model="form.cmt"
               type="textarea"
-              :label="$t('fldCmt')"
+              :label="txt_lang('fldCmt')"
             >
             </q-input>
 
@@ -480,7 +480,7 @@
               :dense="dense"
               :model-value="form.propTag"
               v-model="form.propTag"
-              :label="$t('propTag')"
+              :label="txt_lang('propTag')"
             />
           </q-tab-panel>
         </q-tab-panels>
@@ -491,7 +491,7 @@
           :dense="dense"
           color="primary"
           icon="save"
-          :label="$t('save')"
+          :label="txt_lang('save')"
           @click="onOKClick"
           :disable="validSave()"
         />
@@ -499,7 +499,7 @@
           :dense="dense"
           color="primary"
           icon="cancel"
-          :label="$t('cancel')"
+          :label="txt_lang('cancel')"
           @click="onCancelClick"
         />
       </q-card-actions>
@@ -511,7 +511,7 @@
 import treeselect from "vue3-treeselect";
 import "vue3-treeselect/dist/vue3-treeselect.css";
 import {api, baseURL} from "boot/axios";
-import {notifyError, notifySuccess, pack} from "src/utils/jsutils";
+import {notifyError, notifySuccess, pack, txt_lang} from "src/utils/jsutils";
 import {ref} from "vue";
 import allConsts from "pages/all-consts";
 
@@ -523,10 +523,8 @@ export default {
     console.info("UpdateProp", this.rec)
     return {
       dense: true,  //???????????????????????????
-
-
       form: this.rec,
-      visible: ref(false),
+      visible: false,
       parentName: null,
 
       optionsLevel: [],
@@ -584,6 +582,7 @@ export default {
   ],
 
   methods: {
+    txt_lang,
     inputValueAttrib(val) {
       if (val) {
         this.attrib.id = val.id;
@@ -628,7 +627,7 @@ export default {
     },
 
     loadAttrib() {
-      this.visible = ref(true);
+      this.visible = true;
       api
         .post(baseURL, {
           method: "attrib/loadForSelect",
@@ -639,12 +638,12 @@ export default {
           this.optionsAttrib = response.data.result.records;
         })
         .finally(() => {
-          this.visible = ref(false);
+          this.visible = false;
         });
     },
 
     loadRelTyp() {
-      this.visible = ref(true);
+      this.visible = true;
       api
         .post(baseURL, {
           method: "reltyp/loadRelTypForSelect",
@@ -655,12 +654,12 @@ export default {
           this.optionsRelTyp = response.data.result.records;
         })
         .finally(() => {
-          this.visible = ref(false);
+          this.visible = false;
         });
     },
 
     loadMeter() {
-      this.visible = ref(true);
+      this.visible = true;
       api
         .post(baseURL, {
           method: "meter/loadForSelect",
@@ -671,7 +670,7 @@ export default {
           this.optionsMeter = response.data.result.records;
         })
         .finally(() => {
-          this.visible = ref(false);
+          this.visible = false;
         });
     },
 
@@ -912,7 +911,7 @@ export default {
           //this.form.complex = null
           this.form.isUniq = null;
           this.form.allItem = null;
-          this.visible = ref(true);
+          this.visible = true;
           this.loadMeter();
         } else if (this.form.propType === allConsts.FD_PropType.attr) {
           this.form.factor = null;
@@ -993,13 +992,13 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs.dialog["show"]();
     },
 
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs.dialog["hide"]();
     },
 
     onDialogHide() {
@@ -1137,7 +1136,7 @@ export default {
         //this.optionsStatus.unshift({id: 0, name: this.$t('notChosen')})
       });
 
-    this.visible = ref(true);
+    this.visible = true;
     api
       .post(baseURL, {
         method: "typ/loadTypForSelect",
@@ -1149,7 +1148,7 @@ export default {
         //this.optionsProvider.unshift({id: 0, name: this.$t('notChosen')})
       })
       .finally(() => {
-        this.visible = ref(false)
+        this.visible = false
       });
     if (this.mode === "upd") {
       if (this.form.propType === allConsts.FD_PropType.attr) {

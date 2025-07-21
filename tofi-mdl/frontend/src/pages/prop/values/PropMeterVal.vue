@@ -8,7 +8,7 @@
         @click="editData()"
     >
       <q-tooltip transition-show="rotate" transition-hide="rotate">
-        {{ $t("update") }}
+        {{ txt_lang("update") }}
       </q-tooltip>
     </q-btn>
   </q-bar>
@@ -20,7 +20,7 @@
 import {api, baseURL} from "boot/axios";
 import {ref} from "vue";
 import QTreeTable from "components/QTreeTable.vue";
-import {expandAll, hasTarget, notifyError, pack} from "src/utils/jsutils";
+import {expandAll, hasTarget, notifyError, pack, txt_lang} from "src/utils/jsutils";
 import UpdaterPropMeterVal from "pages/prop/values/UpdaterPropMeterVal.vue";
 
 export default {
@@ -43,6 +43,7 @@ export default {
   ],
 
   methods: {
+    txt_lang,
     hasTarget,
     loadPropMeter(prop) {
       this.loading = ref(true);

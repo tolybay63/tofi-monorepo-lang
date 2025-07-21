@@ -9,7 +9,7 @@
   >
     <q-card class="q-dialog-plugin" style="width: 800px">
       <q-bar class="text-white bg-primary">
-        <div>{{ $t("update") }}</div>
+        <div>{{ txt_lang("update") }}</div>
       </q-bar>
 
       <q-card-section>
@@ -66,7 +66,7 @@
             :dense="dense"
             color="primary"
             icon="save"
-            :label="$t('save')"
+            :label="txt_lang('save')"
             @click="onOKClick"
             :disable="validSave()"
         >
@@ -79,7 +79,7 @@
             :dense="dense"
             color="primary"
             icon="cancel"
-            :label="$t('cancel')"
+            :label="txt_lang('cancel')"
             @click="onCancelClick"
         />
       </q-card-actions>
@@ -90,7 +90,7 @@
 <script>
 import {api, baseURL} from "boot/axios";
 import {ref} from "vue";
-import {notifyError} from "src/utils/jsutils";
+import {notifyError, txt_lang} from "src/utils/jsutils";
 
 export default {
   props: ["prop", "entityType", "dense"],
@@ -101,7 +101,7 @@ export default {
       cols: [],
       rows: [],
       separator: ref("cell"),
-      loading: ref(false),
+      loading: false,
     };
   },
 
@@ -112,6 +112,7 @@ export default {
   ],
 
   methods: {
+    txt_lang,
     selectedRow(row) {
       row.checked = !row.checked;
     },
@@ -168,11 +169,11 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs.dialog["show"]();
     },
 
     onOKClick() {
-      this.loading = ref(true);
+      this.loading = true;
       let dta = [];
 
       this.rows.forEach((r) => {
@@ -198,7 +199,7 @@ export default {
               }
           )
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
             this.hide();
           });
     },
@@ -206,7 +207,7 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs.dialog["hide"]();
     },
 
     onDialogHide() {

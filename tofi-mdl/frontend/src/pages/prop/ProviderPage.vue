@@ -18,12 +18,12 @@
 
     <template #bottom-row>
       <q-td colspan="100%" v-if="selected.length > 0">
-        <span class="text-blue"> {{ $t("selectedRow") }}: </span>
+        <span class="text-blue"> {{ txt_lang("selectedRow") }}: </span>
         <span class="text-bold"> {{ this.infoSelected(selected[0]) }} </span>
       </q-td>
       <q-td
           v-else-if="this.rows.length > 0" colspan="100%" class="text-bold">
-        {{ $t("infoApp") }}
+        {{ txt_lang("infoApp") }}
       </q-td>
     </template>
 
@@ -35,7 +35,7 @@
           @click="editRow(null, 'ins')"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("newRecord") }}
+          {{ txt_lang("newRecord") }}
         </q-tooltip>
       </q-btn>
       <q-btn
@@ -45,7 +45,7 @@
           @click="editRow(selected[0], 'upd')"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("editRecord") }}
+          {{ txt_lang("editRecord") }}
         </q-tooltip>
       </q-btn>
       <q-btn
@@ -55,7 +55,7 @@
           @click="removeRow(selected[0])"
       >
         <q-tooltip transition-show="rotate" transition-hide="rotate">
-          {{ $t("deletingRecord") }}
+          {{ txt_lang("deletingRecord") }}
         </q-tooltip>
       </q-btn>
     </template>
@@ -73,7 +73,7 @@
 import {api, baseURL} from "boot/axios";
 import {ref} from "vue";
 import UpdaterProvider from "pages/prop/UpdaterProvider.vue";
-import {hasTarget, notifyError, notifySuccess} from "src/utils/jsutils";
+import {hasTarget, notifyError, notifySuccess, txt_lang} from "src/utils/jsutils";
 
 export default {
   props: ["act", "fk", "typ"],
@@ -83,15 +83,16 @@ export default {
       cols: [],
       rows: [],
       selected: [],
-      loading: ref(false),
+      loading: false,
     };
   },
 
   methods: {
+    txt_lang,
     hasTarget,
 
     loadProvider() {
-      this.loading = ref(true);
+      this.loading = true;
       api
           .post(baseURL, {
             method: this.act + "/loadProvider",
@@ -102,7 +103,7 @@ export default {
             //console.info("rows", this.rows)
           })
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
           });
     },
 

@@ -11,7 +11,7 @@
   >
     <q-card class="q-dialog-plugin no-scroll">
       <q-bar class="text-white bg-primary">
-        <div>{{ $t("update") }}</div>
+        <div>{{ txt_lang("update") }}</div>
       </q-bar>
 
       <q-bar style="height: 45px">
@@ -23,7 +23,7 @@
             @click="onAll()"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("onAll") }}
+            {{ txt_lang("onAll") }}
           </q-tooltip>
         </q-btn>
 
@@ -35,7 +35,7 @@
             @click="offAll()"
         >
           <q-tooltip transition-show="rotate" transition-hide="rotate">
-            {{ $t("offAll") }}
+            {{ txt_lang("offAll") }}
           </q-tooltip>
         </q-btn>
 
@@ -47,7 +47,7 @@
             :dense="dense"
             color="secondary"
             icon="save"
-            :label="$t('save')"
+            :label="txt_lang('save')"
             @click="onOKClick"
             :disable="validSave()"
         >
@@ -61,7 +61,7 @@
             :dense="dense"
             color="secondary"
             icon="cancel"
-            :label="$t('cancel')"
+            :label="txt_lang('cancel')"
             @click="onCancelClick"
         />
       </q-bar>
@@ -83,7 +83,7 @@
                 :wrap-cells="true"
                 :table-colspan="4"
                 table-header-class="text-bold text-white bg-blue-grey-13"
-                separator="ref"
+                separator="cell"
                 :dense="dense"
                 :rows-per-page-options="[0]"
             >
@@ -132,7 +132,7 @@
 <script>
 import {api, baseURL} from "boot/axios";
 import {ref} from "vue";
-import {notifyError} from "src/utils/jsutils";
+import {notifyError, txt_lang} from "src/utils/jsutils";
 
 export default {
   props: ["prop", "dense"],
@@ -142,8 +142,7 @@ export default {
       propId: this.prop,
       cols: [],
       rows: [],
-      separator: ref("cell"),
-      loading: ref(false),
+      loading: false,
     };
   },
 
@@ -154,6 +153,7 @@ export default {
   ],
 
   methods: {
+    txt_lang,
     selectedRow(row) {
       row.checked = !row.checked;
     },
@@ -219,11 +219,11 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "show")
     show() {
-      this.$refs.dialog.show();
+      this.$refs.dialog["show"]();
     },
 
     onOKClick() {
-      this.loading = ref(true);
+      this.loading = true;
       let dta = [];
 
       this.rows.forEach((r) => {
@@ -249,7 +249,7 @@ export default {
               }
           )
           .finally(() => {
-            this.loading = ref(false);
+            this.loading = false;
             this.hide();
           });
     },
@@ -257,7 +257,7 @@ export default {
     // following method is REQUIRED
     // (don't change its name --> "hide")
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs.dialog["hide"]();
     },
 
     onDialogHide() {
