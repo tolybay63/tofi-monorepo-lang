@@ -548,7 +548,7 @@ export default defineComponent({
                 //console.log("FD_AL", this.FD_AccessLevel)
                 this.rows = response.data.result.records;
                 this.selected = ref([]);
-                console.info("Rows", this.rows)
+                //console.info("Rows", this.rows)
               },
               (error) => {
 

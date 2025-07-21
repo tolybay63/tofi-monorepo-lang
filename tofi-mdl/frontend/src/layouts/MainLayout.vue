@@ -159,7 +159,7 @@ export default defineComponent({
   setup() {
     console.info("Setup")
 
-    const selected = ref(null);
+    const selected = ref([]);
     const leftDrawerOpen = ref(false);
 
     const store = useUserStore();
