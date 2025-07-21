@@ -18,7 +18,7 @@ class UtEntityTranslate extends BaseMdbUtils {
     Store getTranslatedStore(Store st, String table, String lang, boolean hasVer=false) {
         if (lang.isEmpty())
             throw new XError("lang is empty")
-        String pathKey = mdb.getApp().getAppdir() + File.separator + "triple-cab-444511-s7-d2a53763df4c.json"
+        String pathKey = mdb.getApp().getAppdir() + File.separator + "evident-ratio-464911-p0-07c7b487a081.json"
         Store stLang = null
         if (!hasVer) {
             stLang = mdb.loadQuery("""
